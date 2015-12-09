@@ -99,7 +99,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	cMaterial sunMaterial(lightColour4(0.0f, 0.0f, 0.0f, 1.0f), lightColour4(1.0f, 1.0f, 1.0f, 1.0f), lightColour4(1.0f, 1.0f, 1.0f, 1.0f), lightColour4(0, 0, 0, 1.0f), 5.0f);
 
 	// Create Light
-	cLight sunLight(GL_LIGHT0, lightColour4(0, 0, 0, 1), lightColour4(1, 1, 1, 1), lightColour4(1, 1, 1, 1), glm::vec4(0, 0, 20, 1),
+	cLight sunLight(GL_LIGHT0, lightColour4(0, 0, 0, 1), lightColour4(10, 10, 10, 1), lightColour4(10, 10, 10, 1), glm::vec4(0, 0, 20, 1),
 		glm::vec3(0.0, 0.0, 1.0), 0.0f, 180.0f, 1.0f, 0.0f, 0.0f);
 	cLight lfLight(GL_LIGHT1, lightColour4(0, 0, 0, 1), lightColour4(1, 1, 1, 1), lightColour4(1, 1, 1, 1), glm::vec4(30, 0, 100, 1),
 		glm::vec3(0.0, 0.0, 1.0), 0.0f, 180.0f, 1.0f, 0.0f, 0.0f);
@@ -181,7 +181,9 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 	std::vector<cLaser*> laserList;
 	std::vector<cLaser*>::iterator index;
-
+	cCube thecube;
+	cTexture cubtex("Images/crateside.png");
+	thecube.initialise(cubtex);
    //This is the mainloop, we render frames until isRunning returns false
 	while (pgmWNDMgr->isWNDRunning())
     {
@@ -194,7 +196,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		// Lab code goes here
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		theOGLWnd.initOGL(windowWidth,windowHeight);
-
+		
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		bool cam = pgmWNDMgr->camera();
@@ -205,14 +207,15 @@ int WINAPI WinMain(HINSTANCE hInstance,
 			glLoadMatrixf((GLfloat*)&theCamera.getTheViewMatrix());
 		}
 		
-
-		theStarField.render(0.0f);
+		
+	//	theStarField.render(0.0f);
 		sunMaterial.useMaterial();
 		sunLight.lightOn();
 		lfLight.lightOn();
 		rfLight.lightOn();
 		cbLight.lightOn();
-
+thecube.prepare(rotationAngle);
+		thecube.render(thecube.getRotAngle());
 		for (vector<cEnemy*>::iterator enemyIterator = theEnemy.begin(); enemyIterator != theEnemy.end(); ++enemyIterator)
 		{
 			if ((*enemyIterator)->isActive())

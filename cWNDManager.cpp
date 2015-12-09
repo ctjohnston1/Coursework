@@ -247,14 +247,19 @@ LRESULT CALLBACK cWNDManager::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 		break;
 	case WM_KEYDOWN:
 	{
-		if (wParam == VK_F1) //If the escape key was pressed
+		if (wParam == VK_F1) //If the F1 key was pressed
 		{
 			OutputDebugString("ffffffffffffffffffffffffffffffffffff");
 			pInstance->m_camera = true;
 		}
+		if (wParam == VK_F2) //If the F2 key was pressed
+		{
+			OutputDebugString("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+			pInstance->m_camera = false;
+		}
 		if (wParam == VK_ESCAPE) //If the escape key was pressed
 		{
-			OutputDebugString("AHHHHHHHHH");
+			OutputDebugString("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 			DestroyWindow(pInstance->m_hwnd); //Send a WM_DESTROY message
 		}
 		
