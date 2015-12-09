@@ -43,7 +43,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
     //This is our window
 	static cWNDManager* pgmWNDMgr = cWNDManager::getInstance();
-bool switcher = pgmWNDMgr->camera();
+
 	// This is the input manager
 	static cInputMgr* theInputMgr = cInputMgr::getInstance();
 
@@ -127,9 +127,6 @@ bool switcher = pgmWNDMgr->camera();
 	theSoundMgr->add("Shot", gameSounds[1]);
 	theSoundMgr->add("Explosion", gameSounds[2]);
 
-	cWNDManager value;
-	value.camera();
-
 	// Create a camera
 	cCamera theCamera;
 	theCamera.setTheCameraPos(glm::vec3(0.0f, 0.0f, 75.0f));
@@ -189,6 +186,7 @@ bool switcher = pgmWNDMgr->camera();
 	while (pgmWNDMgr->isWNDRunning())
     {
 		pgmWNDMgr->processWNDEvents(); //Process any window events
+		
 
         //We get the time that passed since the last frame
 		float elapsedTime = pgmWNDMgr->getElapsedSeconds();
@@ -199,9 +197,8 @@ bool switcher = pgmWNDMgr->camera();
 
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		
-		if (switcher == true){
-			
+		bool cam = pgmWNDMgr->camera();
+		if (cam == true){
 				glLoadMatrixf((GLfloat*)&birdsEye.getTheViewMatrix());
 		}
 		else{

@@ -131,6 +131,7 @@ bool cWNDManager::isWNDRunning()
 bool cWNDManager::camera(){  //returns camera switch signal
 	
 	return m_camera;
+	
 }
 HWND cWNDManager::getWNDHandle()               // Return window handle.
 {

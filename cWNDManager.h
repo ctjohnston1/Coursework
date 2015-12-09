@@ -25,12 +25,12 @@ public:
 	void attachInputMgr(cInputMgr* inputMgr);
 
 	bool isWNDRunning(); //Is the window running?
-	bool camera();
+	
 	HWND getWNDHandle(); // Return window handle.
 	HDC getWNDDC(); // Return Device context
 
 	void swapBuffers() { SwapBuffers(m_hdc); }
-
+bool camera();
 	static LRESULT CALLBACK WndProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 	float getElapsedSeconds();
@@ -44,8 +44,7 @@ private:
 	cInputMgr* m_InputMgr; //A link to the Input Manager
 
 	bool m_isRunning; //Is the window still running?
-	bool m_camera;//camera switch
-
+	bool m_camera;
 	HGLRC m_hglrc; //Rendering context
 	RECT m_windowRect; //Window bounds
 	HINSTANCE m_hinstance; //Application instance
