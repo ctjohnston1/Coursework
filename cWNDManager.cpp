@@ -29,6 +29,8 @@ cWNDManager::cWNDManager()
 	m_winOGL = NULL;
 	m_hinstance = NULL;
 	m_lastTime = 0;
+	m_camera = false;
+	
 }
 /*
 =================================================================================
@@ -106,6 +108,7 @@ bool cWNDManager::createWND(int width, int height, int bpp)
 	return true;
 }
 
+
 void cWNDManager::destroyWND()
 {
 	ShowCursor(true);                       // Show Mouse Pointer
@@ -125,7 +128,10 @@ bool cWNDManager::isWNDRunning()
 {
 	return m_isRunning;
 }
-
+bool cWNDManager::camera(){  //returns camera switch signal
+	
+	return m_camera;
+}
 HWND cWNDManager::getWNDHandle()               // Return window handle.
 {
 	return m_hwnd;
@@ -240,10 +246,18 @@ LRESULT CALLBACK cWNDManager::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 		break;
 	case WM_KEYDOWN:
 	{
+		if (wParam == VK_F1) //If the escape key was pressed
+		{
+			OutputDebugString("ffffffffffffffffffffffffffffffffffff");
+			pInstance->m_camera = true;
+		}
 		if (wParam == VK_ESCAPE) //If the escape key was pressed
 		{
+			OutputDebugString("AHHHHHHHHH");
 			DestroyWindow(pInstance->m_hwnd); //Send a WM_DESTROY message
 		}
+		
+
 		pInstance->m_InputMgr->keyDown(wParam);
 		return 0;
 	}

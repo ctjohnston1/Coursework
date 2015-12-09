@@ -59,6 +59,7 @@ void cInputMgr::keyDown(WPARAM wParam)
 	{
 		keysDownBuffer[wParam] = true;    // update keysDown array
 		keysPressedBuffer[wParam] = true; // update keysPressed array
+
 	}
 }
 
@@ -119,6 +120,7 @@ bool cInputMgr::anyKeyPressed()
 		{
 			return true;
 		}
+		
 	}
 	return false;
 }

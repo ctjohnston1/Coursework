@@ -43,7 +43,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
     //This is our window
 	static cWNDManager* pgmWNDMgr = cWNDManager::getInstance();
-
+bool switcher = pgmWNDMgr->camera();
 	// This is the input manager
 	static cInputMgr* theInputMgr = cInputMgr::getInstance();
 
@@ -79,6 +79,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		pgmWNDMgr->destroyWND(); //Reset the display and exit
         return 1;
     }
+	//string specialChar;
+	
 
 	// Create Texture map
 	cTexture tardisTexture;
@@ -125,6 +127,9 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	theSoundMgr->add("Shot", gameSounds[1]);
 	theSoundMgr->add("Explosion", gameSounds[2]);
 
+	cWNDManager value;
+	value.camera();
+
 	// Create a camera
 	cCamera theCamera;
 	theCamera.setTheCameraPos(glm::vec3(0.0f, 0.0f, 75.0f));
@@ -133,6 +138,15 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	theCamera.setTheCameraAspectRatio(windowWidth, windowHeight);
 	theCamera.setTheProjectionMatrix(45.0f, theCamera.getTheCameraAspectRatio(), 0.1f, 300.0f);
 	theCamera.update();
+
+	//the second camera for the game
+	cCamera birdsEye;
+	birdsEye.setTheCameraPos(glm::vec3(50.0f, 0.0f, 75.0f));
+	birdsEye.setTheCameraLookAt(glm::vec3(0.0f, 0.0f, 0.0f));
+	birdsEye.setTheCameraUpVector(glm::vec3(0.0f, 1.0f, 0.0f)); 
+	birdsEye.setTheCameraAspectRatio(windowWidth, windowHeight);
+	birdsEye.setTheProjectionMatrix(45.0f, birdsEye.getTheCameraAspectRatio(), 0.1f, 300.0f);
+	birdsEye.update();
 
 	//Clear key buffers
 	theInputMgr->clearBuffers(theInputMgr->KEYS_DOWN_BUFFER | theInputMgr->KEYS_PRESSED_BUFFER);
@@ -161,6 +175,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	thePlayer.setMdlDimensions(tardisMdl.getModelDimensions());
 	thePlayer.attachInputMgr(theInputMgr);
 	thePlayer.attachSoundMgr(theSoundMgr);
+	
 
 	float tCount = 0.0f;
 	string outputMsg;
@@ -184,7 +199,15 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		glLoadMatrixf((GLfloat*)&theCamera.getTheViewMatrix());
+		
+		if (switcher == true){
+			
+				glLoadMatrixf((GLfloat*)&birdsEye.getTheViewMatrix());
+		}
+		else{
+			glLoadMatrixf((GLfloat*)&theCamera.getTheViewMatrix());
+		}
+		
 
 		theStarField.render(0.0f);
 		sunMaterial.useMaterial();

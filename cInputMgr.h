@@ -20,6 +20,8 @@ private:
 	bool middleMouseBtn;          // true if middle mouse button down
 	bool rightMouseBtn;           // true if right mouse button down
 
+	
+
 	static cInputMgr* pInstance;
 
 public:
@@ -48,6 +50,9 @@ public:
 	bool getLeftMouseBtn();						// Return state of left mouse button.
 	bool getMiddleMouseBtn();					// Return state of middle mouse button.
 	bool getRightMouseBtn();					// Return state of right mouse button.
+	void setD(int vkey);
+	bool getD();
+	
 
 };
 
