@@ -3,6 +3,7 @@
 
 #define GLX_GLXEXT_LEGACY //Must be declared so that our local glxext.h is picked up, rather than the system one
 
+//a check to make sure git hub works
 
 //#include <windows.h>
 #include "GameConstants.h"
