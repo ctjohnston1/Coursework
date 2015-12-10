@@ -113,7 +113,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 	// load game fonts
 	// Load Fonts
-	LPCSTR gameFonts[3] = { "Fonts/digital-7.ttf", "Fonts/space age.ttf", "Fonts/doctor_who.ttf" };
+	LPCSTR gameFonts[3] = { "Fonts/digital-7.ttf", "Fonts/space age.ttf", "Fonts/Stjldbl1.ttf" };
 
 	theFontMgr->addFont("SevenSeg", gameFonts[0], 24);
 	theFontMgr->addFont("Space", gameFonts[1], 24);
@@ -121,11 +121,11 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 	// load game sounds
 	// Load Sound
-	LPCSTR gameSounds[3] = { "Audio/who10Edit.wav", "Audio/shot007.wav", "Audio/explosion2.wav" };
+	LPCSTR gameSounds[3] = { "Audio/DuelOfTheFates.wav", "Audio/Blaster.wav", "Audio/explosion2.wav" };
 
-	theSoundMgr->add("Theme", gameSounds[0]);
-	theSoundMgr->add("Shot", gameSounds[1]);
-	theSoundMgr->add("Explosion", gameSounds[2]);
+	theSoundMgr->add("Theme", gameSounds[0]);		//the theme was changed to duel of the fates
+	theSoundMgr->add("Blaster", gameSounds[1]);		//shot's sound file was changes to the blaster sound effect
+	theSoundMgr->add("Explosion", gameSounds[2]);	//explosion 2 will be kept as the sound effect suits the scene
 
 	// Create a camera
 	cCamera theCamera;
@@ -207,6 +207,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 			glLoadMatrixf((GLfloat*)&theCamera.getTheViewMatrix());
 		}
 		
+
 		
 	//	theStarField.render(0.0f);
 		sunMaterial.useMaterial();
@@ -236,14 +237,14 @@ thecube.prepare(rotationAngle);
 				(*laserIterartor)->update(elapsedTime);
 			}
 		}
-
+		
 		outputMsg = to_string(theEnemy.size()); // convert float to string
 		
 		glPushMatrix();
 		theOGLWnd.setOrtho2D(windowWidth, windowHeight);
-		theFontMgr->getFont("DrWho")->printText("Tardis Wars", FTPoint(10, 35, 0.0f), colour3f(0.0f,255.0f,0.0f));
-		theFontMgr->getFont("DrWho")->printText(outputMsg.c_str(), FTPoint(850, 35, 0.0f), colour3f(255.0f, 255.0f, 0.0f)); // uses c_str to convert string to LPCSTR
-		glPopMatrix();
+		theFontMgr->getFont("DrWho")->printText("STAR WARS", FTPoint(10, 35, 0.0f), colour3f(0.0f,255.0f,0.0f));
+		theFontMgr->getFont("Space")->printText(outputMsg.c_str(), FTPoint(850, 35, 0.0f), colour3f(255.0f, 255.0f, 0.0f)); // uses c_str to convert string to LPCSTR
+		glPopMatrix();//850
 
 		pgmWNDMgr->swapBuffers();
 

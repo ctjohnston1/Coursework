@@ -107,6 +107,7 @@
     <ClInclude Include="cPlayer.h" />
     <ClInclude Include="cPyramid.h" />
     <ClInclude Include="cShapes.h" />
+    <ClInclude Include="cSkybox.h" />
     <ClInclude Include="cSound.h" />
     <ClInclude Include="cSoundMgr.h" />
     <ClInclude Include="cSphere.h" />
