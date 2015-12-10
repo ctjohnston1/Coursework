@@ -237,7 +237,7 @@ thecube.prepare(rotationAngle);
 				(*laserIterartor)->update(elapsedTime);
 			}
 		}
-		
+		//git hub error appeared a change is needed to check it
 		outputMsg = to_string(theEnemy.size()); // convert float to string
 		
 		glPushMatrix();
