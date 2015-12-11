@@ -3,7 +3,9 @@
 
 #include <Xinput.h>
 #include <windows.h>
-
+#define _AMD_64_
+#define _IA64_
+#pragma comment(lib, "Xinput.lib")
 class cXboxController{
 
 private:

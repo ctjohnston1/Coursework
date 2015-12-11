@@ -3,7 +3,6 @@
 
 #define GLX_GLXEXT_LEGACY //Must be declared so that our local glxext.h is picked up, rather than the system one
 
-
 //a check to make sure git hub works
 
 //#include <windows.h>
@@ -29,6 +28,9 @@
 #include "cLaser.h"
 #include "tardisWarsGame.h"
 
+#include "cXboxContoller.h"
+#include<iostream>
+
 int WINAPI WinMain(HINSTANCE hInstance,
                    HINSTANCE hPrevInstance,
                    LPSTR cmdLine,
@@ -40,6 +42,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
     const int windowHeight = 768;
     const int windowBPP = 16;
 
+
+	
 
 
     //This is our window
@@ -82,6 +86,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
     }
 	//string specialChar;
 	
+	//game pad code
+
 
 	// Create Texture map
 	cTexture tardisTexture;
@@ -286,3 +292,5 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
     return 0; //Return success
 }
+
+
