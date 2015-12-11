@@ -3,6 +3,7 @@
 
 #define GLX_GLXEXT_LEGACY //Must be declared so that our local glxext.h is picked up, rather than the system one
 
+
 //a check to make sure git hub works
 
 //#include <windows.h>
@@ -92,6 +93,10 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	cTexture starTexture;
 	starTexture.createTexture("Images/star.png");
 
+	//assault ship texture
+	cTexture assaultShipTexture;
+	assaultShipTexture.createTexture("Models/UFO/UFO.tga");
+
 	// the starfield
 	cStarfield theStarField(starTexture.getTexture(), glm::vec3(50.0f, 50.0f, 50.0f));
 
@@ -107,8 +112,13 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		glm::vec3(0.0, 0.0, 1.0), 0.0f, 180.0f, 1.0f, 0.0f, 0.0f);
 	cLight cbLight(GL_LIGHT3, lightColour4(0, 0, 0, 1), lightColour4(1, 1, 1, 1), lightColour4(1, 1, 1, 1), glm::vec4(0, 0, -100, 1),
 		glm::vec3(0.0, 0.0, 1.0), 0.0f, 180.0f, 1.0f, 0.0f, 0.0f);
+
+	//light for the Deathstar  :: note that the glm vec 4 value was changed
+	cLight deathLight(GL_LIGHT3, lightColour4(0, 0, 0, 1), lightColour4(1, 1, 1, 1), lightColour4(1, 1, 1, 1), glm::vec4(0, 0, 0, 1),
+		glm::vec3(0.0, 0.0, 1.0), 0.0f, 180.0f, 1.0f, 0.0f, 0.0f);
+
 	//Define Ambient light for scene
-	GLfloat g_Ambient[] = { 0.2, 0.2, 0.2, 1.0 };
+	GLfloat g_Ambient[] = { 10.2, 10.2, 10.2, 1.0 };
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, g_Ambient);
 
 	// load game fonts
@@ -145,15 +155,26 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	birdsEye.setTheProjectionMatrix(45.0f, birdsEye.getTheCameraAspectRatio(), 0.1f, 300.0f);
 	birdsEye.update();
 
+
+	//loading sphere for deathstar in scene
+	cSphere deathStar(2,20,20);
+	cTexture deathTexture;
+	deathTexture.createTexture("Images/deathstar.png");
+	deathStar.initialise(deathTexture.getTexture(), glm::vec3(4,10,10),glm::vec3(0,0,0));
+
+
 	//Clear key buffers
 	theInputMgr->clearBuffers(theInputMgr->KEYS_DOWN_BUFFER | theInputMgr->KEYS_PRESSED_BUFFER);
 
 	// Model
 	cModelLoader tardisMdl;
-	tardisMdl.loadModel("Models/tardis1314.obj", tardisTexture); // Player
+	tardisMdl.loadModel("Models/UFO/UFO.obj", assaultShipTexture); // Player
 
 	cModelLoader spaceShipMdl;
 	spaceShipMdl.loadModel("Models/SpaceShip/Sample_Ship.obj", spaceShipTexture); // Enemy
+
+	cModelLoader assaultShip;
+	assaultShip.loadModel("Models/UFO/UFO.obj", assaultShipTexture);
 	
 	cModelLoader theLaser;
 	theLaser.loadModel("Models/laser.obj", laserTexture);
@@ -169,21 +190,20 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 	cPlayer thePlayer;
 	thePlayer.initialise(glm::vec3(0, 0, 0), 0.0f, glm::vec3(1, 1, 1), glm::vec3(0, 0, 0), 5.0f, true);
-	thePlayer.setMdlDimensions(tardisMdl.getModelDimensions());
+	thePlayer.setMdlDimensions(tardisMdl.getModelDimensions());	
 	thePlayer.attachInputMgr(theInputMgr);
 	thePlayer.attachSoundMgr(theSoundMgr);
 	
 
 	float tCount = 0.0f;
 	string outputMsg;
+	string currentrotation;
 
 	theSoundMgr->getSnd("Theme")->playAudio(AL_LOOPING);
 
 	std::vector<cLaser*> laserList;
 	std::vector<cLaser*>::iterator index;
-	cCube thecube;
-	cTexture cubtex("Images/crateside.png");
-	thecube.initialise(cubtex);
+	
    //This is the mainloop, we render frames until isRunning returns false
 	while (pgmWNDMgr->isWNDRunning())
     {
@@ -207,7 +227,10 @@ int WINAPI WinMain(HINSTANCE hInstance,
 			glLoadMatrixf((GLfloat*)&theCamera.getTheViewMatrix());
 		}
 		
-
+		//deathStar.setRotAngle(deathStar.getRotAngle);
+	//	deathStar.prepare(deathStar.getRotAngle);
+		//sunMaterial.useMaterial();
+		
 		
 	//	theStarField.render(0.0f);
 		sunMaterial.useMaterial();
@@ -215,8 +238,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		lfLight.lightOn();
 		rfLight.lightOn();
 		cbLight.lightOn();
-thecube.prepare(rotationAngle);
-		thecube.render(thecube.getRotAngle());
+
+	deathStar.render(0.0f);
 		for (vector<cEnemy*>::iterator enemyIterator = theEnemy.begin(); enemyIterator != theEnemy.end(); ++enemyIterator)
 		{
 			if ((*enemyIterator)->isActive())
@@ -239,11 +262,14 @@ thecube.prepare(rotationAngle);
 		}
 		//git hub error appeared a change is needed to check it
 		outputMsg = to_string(theEnemy.size()); // convert float to string
+		currentrotation = to_string(thePlayer.getRotation());
 		
 		glPushMatrix();
 		theOGLWnd.setOrtho2D(windowWidth, windowHeight);
 		theFontMgr->getFont("DrWho")->printText("STAR WARS", FTPoint(10, 35, 0.0f), colour3f(0.0f,255.0f,0.0f));
 		theFontMgr->getFont("Space")->printText(outputMsg.c_str(), FTPoint(850, 35, 0.0f), colour3f(255.0f, 255.0f, 0.0f)); // uses c_str to convert string to LPCSTR
+		theFontMgr->getFont("Space")->printText("Your Current Rotation Angle: ", FTPoint(10, 80, 0.0f), colour3f(0.0f, 255.0f, 0.0f));
+		theFontMgr->getFont("Space")->printText(currentrotation.c_str() , FTPoint(600, 80, 0.0f), colour3f(0.0f, 255.0f, 0.0f));
 		glPopMatrix();//850
 
 		pgmWNDMgr->swapBuffers();

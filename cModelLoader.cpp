@@ -36,6 +36,7 @@ void cModelLoader::loadModel(const char* mdlFilename, cTexture mdlTexture)
 	m_model->textures[m_model->numtextures - 1].width = mdlTexture.getTWidth();
 	m_model->textures[m_model->numtextures - 1].height = mdlTexture.getTHeight();
 	//glmLinearTexture(m_model);
+	
 }
 void cModelLoader::renderMdl(glm::vec3 mdlPosition, float mdlRotationAngle, glm::vec3 mdlScale)
 {

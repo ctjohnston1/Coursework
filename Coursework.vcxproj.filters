@@ -93,6 +93,9 @@
     <ClCompile Include="windowOGL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cXboxController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cCamera.h">
@@ -174,6 +177,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cSkybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cXboxContoller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

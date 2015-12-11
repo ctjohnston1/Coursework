@@ -86,6 +86,7 @@
     <ClCompile Include="cTexture.cpp" />
     <ClCompile Include="cTriangle.cpp" />
     <ClCompile Include="cWNDManager.cpp" />
+    <ClCompile Include="cXboxController.cpp" />
     <ClCompile Include="GameConstants.cpp" />
     <ClCompile Include="Studentmain.cpp" />
     <ClCompile Include="tardisWarsGame.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="cTexture.h" />
     <ClInclude Include="cTriangle.h" />
     <ClInclude Include="cWNDManager.h" />
+    <ClInclude Include="cXboxContoller.h" />
     <ClInclude Include="GameConstants.h" />
     <ClInclude Include="tardisWarsGame.h" />
     <ClInclude Include="wglext.h" />
