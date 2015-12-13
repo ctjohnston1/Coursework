@@ -204,7 +204,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	
 
 	float tCount = 0.0f;
-	float elapse ;
+
 	string outputMsg;
 	string currentrotation;
 	string amountOfEnergy;
@@ -257,7 +257,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 			sndvalidator += 1;
 
 		}
-	//	theStarField.render(0.0f);
+		theStarField.render(0.0f);
 		sunMaterial.useMaterial();
 		sunLight.lightOn();
 		lfLight.lightOn();
@@ -287,11 +287,13 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		}
 		//git hub error appeared a change is needed to check it
 		outputMsg = to_string(theEnemy.size()); // convert float to string
+		
 		currentrotation = to_string(thePlayer.getRotation());
 		amountOfEnergy = to_string(energy);
-		   
+	
 		glPushMatrix();
 		theOGLWnd.setOrtho2D(windowWidth, windowHeight);
+
 		theFontMgr->getFont("DrWho")->printText("STAR WARS", FTPoint(10, 35, 0.0f), colour3f(0.0f,255.0f,0.0f));
 		theFontMgr->getFont("Space")->printText(outputMsg.c_str(), FTPoint(850, 35, 0.0f), colour3f(255.0f, 255.0f, 0.0f)); // uses c_str to convert string to LPCSTR
 		theFontMgr->getFont("Space")->printText("Your Current Rotation Angle: ", FTPoint(10, 80, 0.0f), colour3f(0.0f, 255.0f, 0.0f));
