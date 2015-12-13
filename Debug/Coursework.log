@@ -1,8 +1,8 @@
-﻿Build started 11/12/2015 02:47:52.
-     1>Project "C:\Users\Conor\Documents\GitHub\Coursework\Coursework\Coursework.vcxproj" on node 2 (Build target(s)).
+﻿Build started 13/12/2015 00:34:14.
+     1>Project "C:\Users\Conor\Documents\GitHub\Coursework\Coursework.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Gamepad.cpp
-         Gamepad.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt cPlayer.cpp
+         cPlayer.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Conor\Documents\GitHub\Coursework\Debug\Coursework.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Conor\Documents\GitHub\Coursework\Debug\Coursework.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Conor\Documents\GitHub\Coursework\Debug\Coursework.lib" /MACHINE:X86 Debug\cCamera.obj
          Debug\cColours.obj
@@ -27,7 +27,6 @@
          Debug\cTriangle.obj
          Debug\cWNDManager.obj
          Debug\GameConstants.obj
-         Debug\Gamepad.obj
          Debug\Studentmain.obj
          Debug\tardisWarsGame.obj
          Debug\windowOGL.obj
@@ -40,8 +39,8 @@
          Libraries\ILUT.lib
          Libraries\OpenAL32.lib
          Coursework.vcxproj -> C:\Users\Conor\Documents\GitHub\Coursework\Debug\Coursework.exe
-     1>Done Building Project "C:\Users\Conor\Documents\GitHub\Coursework\Coursework\Coursework.vcxproj" (Build target(s)).
+     1>Done Building Project "C:\Users\Conor\Documents\GitHub\Coursework\Coursework.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.26
+Time Elapsed 00:00:01.92

@@ -30,6 +30,7 @@ cWNDManager::cWNDManager()
 	m_hinstance = NULL;
 	m_lastTime = 0;
 	m_camera = false;
+	m_soundtrack = false;
 	
 }
 /*
@@ -132,6 +133,10 @@ bool cWNDManager::camera(){  //returns camera switch signal
 	
 	return m_camera;
 	
+}
+bool cWNDManager::soundtrack(){
+
+	return m_soundtrack;
 }
 HWND cWNDManager::getWNDHandle()               // Return window handle.
 {
@@ -256,6 +261,24 @@ LRESULT CALLBACK cWNDManager::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 		{
 			OutputDebugString("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 			pInstance->m_camera = false;
+		}
+		if (wParam == VK_F3) //If the F1 key was pressed
+		{
+			OutputDebugString("Duel of the Fates");
+			if (pInstance->m_soundtrack == false){
+                        pInstance->m_soundtrack = true;
+			}
+			
+			
+		}
+		if (wParam == VK_F4) //If the F1 key was pressed
+		{
+			OutputDebugString("Battle of the Heroes ");
+			pInstance->m_soundtrack = false;
+			if (pInstance->m_soundtrack == true){
+						pInstance->m_soundtrack = false;
+			}
+
 		}
 		if (wParam == VK_ESCAPE) //If the escape key was pressed
 		{

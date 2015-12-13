@@ -76,6 +76,7 @@ extern int drawMode;
 extern float rotationAngle;
 extern float translationZ;
 extern bool fire;
+extern int energy;
 
 
 #endif

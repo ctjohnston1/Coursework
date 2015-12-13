@@ -1,5 +1,6 @@
 #include "cPlayer.h"
 
+
 cPlayer::cPlayer() : cModel()
 {
 
@@ -49,7 +50,12 @@ void cPlayer::update(float elapsedTime)
 		//theTardisLasers[numLasers]->setMdlDimensions(theLaser.getModelDimensions());
 		theTardisLasers[numLasers]->update(elapsedTime);
 		// play the firing sound
-		m_SoundMgr->getSnd("Blaster")->playAudio(AL_TRUE); //will play new blaster sound 
+energy = energy - 1;
+		
+m_SoundMgr->getSnd("Blaster")->playAudio(AL_TRUE); //will play new blaster sound 
+
+		
+		
 	}
 
 	/*

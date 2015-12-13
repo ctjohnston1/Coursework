@@ -137,11 +137,13 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 	// load game sounds
 	// Load Sound
-	LPCSTR gameSounds[3] = { "Audio/DuelOfTheFates.wav", "Audio/Blaster.wav", "Audio/explosion2.wav" };
+	LPCSTR gameSounds[5] = { "Audio/DuelOfTheFates.wav", "Audio/Blaster.wav", "Audio/explosion2.wav", "Audio/win.wav", "Audio/no.wav" };
 
 	theSoundMgr->add("Theme", gameSounds[0]);		//the theme was changed to duel of the fates
 	theSoundMgr->add("Blaster", gameSounds[1]);		//shot's sound file was changes to the blaster sound effect
 	theSoundMgr->add("Explosion", gameSounds[2]);	//explosion 2 will be kept as the sound effect suits the scene
+	theSoundMgr->add("Win", gameSounds[3]);	
+	theSoundMgr->add("No", gameSounds[4]);
 
 	// Create a camera
 	cCamera theCamera;
@@ -202,10 +204,17 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	
 
 	float tCount = 0.0f;
+	float elapse ;
 	string outputMsg;
 	string currentrotation;
+	string amountOfEnergy;
+	
+	bool soundtrack = pgmWNDMgr->soundtrack();
+	int sndvalidator = 0;
 
-	theSoundMgr->getSnd("Theme")->playAudio(AL_LOOPING);
+	
+		theSoundMgr->getSnd("Theme")->playAudio(AL_LOOPING);
+	
 
 	std::vector<cLaser*> laserList;
 	std::vector<cLaser*>::iterator index;
@@ -233,11 +242,21 @@ int WINAPI WinMain(HINSTANCE hInstance,
 			glLoadMatrixf((GLfloat*)&theCamera.getTheViewMatrix());
 		}
 		
+		
 		//deathStar.setRotAngle(deathStar.getRotAngle);
 	//	deathStar.prepare(deathStar.getRotAngle);
 		//sunMaterial.useMaterial();
 		
-		
+		bool soundtrack = pgmWNDMgr->soundtrack();
+		if (soundtrack == true){
+			theSoundMgr->getSnd("Theme")->stopAudio();
+			if (sndvalidator > 0){
+				theSoundMgr->getSnd("Theme")->playAudio(AL_LOOPING);
+				
+			}
+			sndvalidator += 1;
+
+		}
 	//	theStarField.render(0.0f);
 		sunMaterial.useMaterial();
 		sunLight.lightOn();
@@ -269,16 +288,44 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		//git hub error appeared a change is needed to check it
 		outputMsg = to_string(theEnemy.size()); // convert float to string
 		currentrotation = to_string(thePlayer.getRotation());
-		
+		amountOfEnergy = to_string(energy);
+		   
 		glPushMatrix();
 		theOGLWnd.setOrtho2D(windowWidth, windowHeight);
 		theFontMgr->getFont("DrWho")->printText("STAR WARS", FTPoint(10, 35, 0.0f), colour3f(0.0f,255.0f,0.0f));
 		theFontMgr->getFont("Space")->printText(outputMsg.c_str(), FTPoint(850, 35, 0.0f), colour3f(255.0f, 255.0f, 0.0f)); // uses c_str to convert string to LPCSTR
 		theFontMgr->getFont("Space")->printText("Your Current Rotation Angle: ", FTPoint(10, 80, 0.0f), colour3f(0.0f, 255.0f, 0.0f));
 		theFontMgr->getFont("Space")->printText(currentrotation.c_str() , FTPoint(600, 80, 0.0f), colour3f(0.0f, 255.0f, 0.0f));
+		theFontMgr->getFont("Space")->printText("Your Remaining Energy: ", FTPoint(10, 700, 0.0f), colour3f(0.0f, 255.0f, 0.0f));
+		theFontMgr->getFont("Space")->printText(amountOfEnergy.c_str(), FTPoint(600, 700, 0.0f), colour3f(0.0f, 255.0f, 0.0f));
 		glPopMatrix();//850
+//the purpose of this if statement is to end the game if the energy levels of the player hit the specified number in this case 0
+//or it ends the game on the condition
+	
+if (energy == 1){
+	theSoundMgr->getSnd("No")->playAudio(AL_TRUE);
+	theSoundMgr->getSnd("Theme")->stopAudio();				
+		}
+if (energy == -1){
+	theOGLWnd.shutdown(); //Free any resources
+	pgmWNDMgr->destroyWND(); //Destroy the program window
+	return 0; //Return success
+}
 
-		pgmWNDMgr->swapBuffers();
+if (theEnemy.size() == 1){
+	theSoundMgr->getSnd("Win")->playAudio(AL_TRUE);
+	theSoundMgr->getSnd("Theme")->stopAudio();
+
+}
+
+if (theEnemy.size() == 0){
+	
+	theOGLWnd.shutdown(); //Free any resources
+	pgmWNDMgr->destroyWND(); //Destroy the program window
+	return 0; //Return success
+
+}
+pgmWNDMgr->swapBuffers();
 
 		tCount += elapsedTime;
 
