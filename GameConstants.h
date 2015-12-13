@@ -3,8 +3,8 @@
 
 #define GLM_FORCE_RADIANS
 //Define the string to appear in the top left corner of the window
-#define WINDOW_TITLE "OpenGl Models - Tardis Wars"
-
+#define WINDOW_TITLE "Coursework : STAR WARS!!!!!" 
+ 
 // Windows & OpenGL 
 #include <stdlib.h>
 #include <Windows.h>

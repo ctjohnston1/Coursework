@@ -87,6 +87,7 @@
     <ClCompile Include="cTriangle.cpp" />
     <ClCompile Include="cWNDManager.cpp" />
     <ClCompile Include="GameConstants.cpp" />
+    <ClCompile Include="Gamepad.cpp" />
     <ClCompile Include="Studentmain.cpp" />
     <ClCompile Include="tardisWarsGame.cpp" />
     <ClCompile Include="windowOGL.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="cTriangle.h" />
     <ClInclude Include="cWNDManager.h" />
     <ClInclude Include="GameConstants.h" />
+    <ClInclude Include="Gamepad.h" />
     <ClInclude Include="tardisWarsGame.h" />
     <ClInclude Include="wglext.h" />
     <ClInclude Include="windowOGL.h" />
@@ -128,6 +130,9 @@
     <Library Include="Libraries\ILU.lib" />
     <Library Include="Libraries\ILUT.lib" />
     <Library Include="Libraries\OpenAL32.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

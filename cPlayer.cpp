@@ -122,7 +122,31 @@ m_SoundMgr->getSnd("Blaster")->playAudio(AL_TRUE); //will play new blaster sound
 	rotationAngle = 0;
 	translationZ = 0;
 }
+void cPlayer::trigpulled(float elapsedTime){
+	glm::vec3 mdlLaserDirection;
+	mdlLaserDirection.x = -(float)glm::sin(glm::radians(this->getRotation()));
+	mdlLaserDirection.y = 0.0f;
+	mdlLaserDirection.z = (float)glm::cos(glm::radians(this->getRotation()));
+	mdlLaserDirection *= -1;
 
+	// Add new bullet sprite to the vector array
+	theTardisLasers.push_back(new cLaser);
+	int numLasers = theTardisLasers.size() - 1;
+	theTardisLasers[numLasers]->setDirection(mdlLaserDirection);
+	theTardisLasers[numLasers]->setRotation(0.0f);
+	theTardisLasers[numLasers]->setScale(glm::vec3(1, 1, 1));
+	theTardisLasers[numLasers]->setSpeed(5.0f);
+	theTardisLasers[numLasers]->setPosition(this->getPosition() + mdlLaserDirection);
+	theTardisLasers[numLasers]->setIsActive(true);
+	//theTardisLasers[numLasers]->setMdlDimensions(theLaser.getModelDimensions());
+	theTardisLasers[numLasers]->update(elapsedTime);
+	// play the firing sound
+	energy = energy - 1;
+
+	m_SoundMgr->getSnd("Blaster")->playAudio(AL_TRUE); //will play new blaster sound 
+
+
+}
 cPlayer::~cPlayer()
 {
 

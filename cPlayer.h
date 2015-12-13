@@ -14,7 +14,7 @@ public:
 	cPlayer();
 	void attachInputMgr(cInputMgr* inputMgr);
 	virtual void update(float elapsedTime);
-
+	void trigpulled(float elapsedTime);
 	~cPlayer();
 };
 #endif

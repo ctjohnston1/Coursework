@@ -273,7 +273,7 @@ LRESULT CALLBACK cWNDManager::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 		}
 		if (wParam == VK_F4) //If the F1 key was pressed
 		{
-			OutputDebugString("Battle of the Heroes ");
+			OutputDebugString("sound switch ");
 			pInstance->m_soundtrack = false;
 			if (pInstance->m_soundtrack == true){
 						pInstance->m_soundtrack = false;

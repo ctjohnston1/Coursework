@@ -28,7 +28,7 @@
 #include "cLaser.h"
 #include "tardisWarsGame.h"
 
-#include "cXboxContoller.h"
+#include "Gamepad.h"
 #include<iostream>
 
 int WINAPI WinMain(HINSTANCE hInstance,
@@ -98,11 +98,16 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	laserTexture.createTexture("Models/laser.tga");
 	cTexture starTexture;
 	starTexture.createTexture("Images/star.png");
+	cTexture moonTexture;
+	moonTexture.createTexture("Models/Moon/Moon/MoonMap2_2500x1250.png");
 
 	//assault ship texture
 	cTexture assaultShipTexture;
 	assaultShipTexture.createTexture("Models/UFO/UFO.tga");
 
+
+	//Gamepad instantiation
+	Gamepad player1(1);
 	// the starfield
 	cStarfield theStarField(starTexture.getTexture(), glm::vec3(50.0f, 50.0f, 50.0f));
 
@@ -119,6 +124,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
 	cLight cbLight(GL_LIGHT3, lightColour4(0, 0, 0, 1), lightColour4(1, 1, 1, 1), lightColour4(1, 1, 1, 1), glm::vec4(0, 0, -100, 1),
 		glm::vec3(0.0, 0.0, 1.0), 0.0f, 180.0f, 1.0f, 0.0f, 0.0f);
 
+
+	
 	//light for the Deathstar  :: note that the glm vec 4 value was changed
 	cLight deathLight(GL_LIGHT3, lightColour4(0, 0, 0, 1), lightColour4(1, 1, 1, 1), lightColour4(1, 1, 1, 1), glm::vec4(0, 0, 0, 1),
 		glm::vec3(0.0, 0.0, 1.0), 0.0f, 180.0f, 1.0f, 0.0f, 0.0f);
@@ -176,18 +183,18 @@ int WINAPI WinMain(HINSTANCE hInstance,
 
 	// Model
 	cModelLoader tardisMdl;
-	tardisMdl.loadModel("Models/UFO/UFO.obj", assaultShipTexture); // Player
+	tardisMdl.loadModel("Models/UFO/UFO.obj", moonTexture); // Player
 
 	cModelLoader spaceShipMdl;
 	spaceShipMdl.loadModel("Models/SpaceShip/Sample_Ship.obj", spaceShipTexture); // Enemy
 
-	cModelLoader assaultShip;
-	assaultShip.loadModel("Models/UFO/UFO.obj", assaultShipTexture);
-	
+	/*cModelLoader theMoon;
+	theMoon.loadModel("Models/Moon/Moon/moon.obj", moonTexture);
+	*/
 	cModelLoader theLaser;
 	theLaser.loadModel("Models/laser.obj", laserTexture);
-
-	for (int loop = 0; loop < 5; loop++)
+	
+	for (int loop = 0; loop < 6; loop++)
 	{
 		theEnemy.push_back(new cEnemy);
 		theEnemy[loop]->randomise();
@@ -242,7 +249,49 @@ int WINAPI WinMain(HINSTANCE hInstance,
 			glLoadMatrixf((GLfloat*)&theCamera.getTheViewMatrix());
 		}
 		
-		
+
+		player1.Update();
+		if (player1.Connected() == true) {
+			OutputDebugString("Connected");
+		}
+		player1.GetState();
+		if (player1.LeftStick_Y() > 0.5f) {
+			player1.Rumble(1.0f, 1.0f);
+			OutputDebugString("UP");
+			translationZ += 0.1f;
+			player1.Rumble(0.0f, 0.0f);
+		}
+		if (player1.LeftStick_X() > 0.5f) {
+			player1.Rumble(1.0f, 1.0f);
+			OutputDebugString("RIGHT");
+			rotationAngle += 1.0f;
+			player1.Rumble(0.0f, 0.0f);
+		}
+		if (player1.LeftStick_Y() < 0.5f) {
+			player1.Rumble(1.0f, 1.0f);
+			OutputDebugString("DOWN");
+			translationZ -= 0.1f;
+			player1.Rumble(0.0f, 0.0f);
+		}
+		if (player1.LeftStick_X() < 0.5f) {
+			player1.Rumble(1.0f, 1.0f);
+			OutputDebugString("LEFT");
+			rotationAngle -= 1.0f;
+			player1.Rumble(0.0f, 0.0f);
+		}
+		if (player1.LeftTrigger() > 0.5f) {
+			player1.Rumble(1.0f, 1.0f);
+			OutputDebugString("LEFT___FIRE___");
+			thePlayer.trigpulled(0.1f);
+			player1.Rumble(0.0f, 0.0f);
+		}
+		if (player1.RightTrigger() > 0.5f) {
+			player1.Rumble(1.0f, 1.0f);
+			OutputDebugString("RIGHT___FIRE___");
+			thePlayer.trigpulled(0.1f);
+			player1.Rumble(0.0f, 0.0f);
+		}
+
 		//deathStar.setRotAngle(deathStar.getRotAngle);
 	//	deathStar.prepare(deathStar.getRotAngle);
 		//sunMaterial.useMaterial();
@@ -252,7 +301,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
 			theSoundMgr->getSnd("Theme")->stopAudio();
 			if (sndvalidator > 0){
 				theSoundMgr->getSnd("Theme")->playAudio(AL_LOOPING);
-				
+				//this is the code that will activate on pulling the left trigger on the gamepad
+				//thePlayer.trigpulled(0.0f);
 			}
 			sndvalidator += 1;
 
@@ -263,8 +313,10 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		lfLight.lightOn();
 		rfLight.lightOn();
 		cbLight.lightOn();
+		
 
 	deathStar.render(0.0f);
+	
 		for (vector<cEnemy*>::iterator enemyIterator = theEnemy.begin(); enemyIterator != theEnemy.end(); ++enemyIterator)
 		{
 			if ((*enemyIterator)->isActive())
@@ -299,7 +351,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
 		theFontMgr->getFont("Space")->printText("Your Current Rotation Angle: ", FTPoint(10, 80, 0.0f), colour3f(0.0f, 255.0f, 0.0f));
 		theFontMgr->getFont("Space")->printText(currentrotation.c_str() , FTPoint(600, 80, 0.0f), colour3f(0.0f, 255.0f, 0.0f));
 		theFontMgr->getFont("Space")->printText("Your Remaining Energy: ", FTPoint(10, 700, 0.0f), colour3f(0.0f, 255.0f, 0.0f));
-		theFontMgr->getFont("Space")->printText(amountOfEnergy.c_str(), FTPoint(600, 700, 0.0f), colour3f(0.0f, 255.0f, 0.0f));
+		theFontMgr->getFont("Space")->printText(amountOfEnergy.c_str(), FTPoint(420, 700, 0.0f), colour3f(0.0f, 255.0f, 0.0f));
 		glPopMatrix();//850
 //the purpose of this if statement is to end the game if the energy levels of the player hit the specified number in this case 0
 //or it ends the game on the condition
