@@ -7,7 +7,7 @@ cSound.cpp
 #include "cSound.h"
 using namespace std;
 
-cSound::cSound()
+cSound::cSound()//constructor
 {
 	m_OALData = NULL;           //data for the buffer
 	m_OALFrequency = 0;     //frequency
@@ -17,7 +17,7 @@ cSound::cSound()
 
 }
 
-cSound::~cSound()
+cSound::~cSound()//decondstructor
 {
 
 	cleanUp();
@@ -49,7 +49,7 @@ void cSound::loadWAVFile(LPCSTR filename)
 	alutUnloadWAV(m_OALFormat, m_OALData, m_OALBufferLen, m_OALFrequency);
 }
 
-void cSound::LoadWAVInfo(ifstream &filename, string &name, 	unsigned int &size)
+void cSound::LoadWAVInfo(ifstream &filename, string &name, 	unsigned int &size)//loads the soundfile specified
 {
 	char chunk[4];
 	filename.read((char *)&chunk, 4);
@@ -58,7 +58,7 @@ void cSound::LoadWAVInfo(ifstream &filename, string &name, 	unsigned int &size)
 	name = string(chunk, 4);
 }
 
-void cSound::playAudio(ALboolean sndLoop)
+void cSound::playAudio(ALboolean sndLoop)//plays the audio
 {
 	alSourcei(m_OALSource, sndLoop, AL_TRUE);
 
@@ -66,13 +66,13 @@ void cSound::playAudio(ALboolean sndLoop)
 	alSourcePlay(m_OALSource);
 }
 
-void cSound::stopAudio()
+void cSound::stopAudio()//stops the audio
 {
 	//to stop
 	alSourceStop(m_OALSource);
 }
 
-void cSound::cleanUp()
+void cSound::cleanUp()//clean up function stops audio and destroys the instances buffer and the information the instance ofcSound instance holds
 {
 	int state;
 	alGetSourcei(m_OALSource, AL_SOURCE_STATE, &state);

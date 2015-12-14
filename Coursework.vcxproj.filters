@@ -21,9 +21,6 @@
     <ClCompile Include="cColours.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="cCube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="cEnemy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -52,9 +49,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cPlayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="cPyramid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cShapes.cpp">
@@ -104,9 +98,6 @@
     <ClInclude Include="cColours.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="cCube.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="cEnemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -135,9 +126,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cPlayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="cPyramid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cShapes.h">
@@ -192,5 +180,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
 </Project>

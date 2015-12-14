@@ -3,7 +3,7 @@
 cWNDManager.cpp
 ==================================================================================
 */
-
+//the includes for the window manager
 #include "cWNDManager.h"
 #include <ctime>
 #include <iostream>
@@ -25,12 +25,13 @@ Constructor
 */
 cWNDManager::cWNDManager()
 {
+	//a list of private variables to be used throughout the different functions of the class
 	m_isRunning = false;
 	m_winOGL = NULL;
 	m_hinstance = NULL;
 	m_lastTime = 0;
-	m_camera = false;
-	m_soundtrack = false;
+	m_camera = false; //this is the private variable that controlls the camera switch 
+	m_soundtrack = false; //this is the private variable that controlls the sound switch
 	
 }
 /*
@@ -40,13 +41,17 @@ Singleton Design Pattern
 */
 cWNDManager* cWNDManager::getInstance()
 {
+	//if pInstance is currently Null or not made
 	if (pInstance == NULL)
 	{
+		//create a new instance of the cWNDManager constructor.
 		pInstance = new cWNDManager();
 	}
+	//return pInstance
 	return cWNDManager::pInstance;
 }
 
+//boolean createWND function with the parameters width, heign and bpp passing through it, all of them integers in value.
 bool cWNDManager::createWND(int width, int height, int bpp)
 {
 	DWORD      dwExStyle;       // Window Extended Style
@@ -110,47 +115,50 @@ bool cWNDManager::createWND(int width, int height, int bpp)
 }
 
 
-void cWNDManager::destroyWND()
+void cWNDManager::destroyWND()//function destroy window
 {
 	ShowCursor(true);                       // Show Mouse Pointer
 }
 
-void cWNDManager::attachOGLWnd(windowOGL* OGLWindow)
+void cWNDManager::attachOGLWnd(windowOGL* OGLWindow)//function attachOGLWnd 
 {
+	//sets private variable to the instance of windowOGL that was passed through the parameters
 	m_winOGL = OGLWindow;
 }
 
-void cWNDManager::attachInputMgr(cInputMgr* inputMgr)
+void cWNDManager::attachInputMgr(cInputMgr* inputMgr)//function attachInputMgr
 {
+	//sets private variable to the instance of cInputMgr that was passed through the parameter.
 	m_InputMgr = inputMgr;
 }
 
-bool cWNDManager::isWNDRunning()
+bool cWNDManager::isWNDRunning()//boolean function isWNDRunning
 {
+	//returns the current value of the private variable m_isRunning
 	return m_isRunning;
 }
-bool cWNDManager::camera(){  //returns camera switch signal
-	
+bool cWNDManager::camera(){  //bool camera function
+	//returns current value of the private variable m_camera
 	return m_camera;
 	
 }
-bool cWNDManager::soundtrack(){
-
+bool cWNDManager::soundtrack(){ //bool soundtrack function
+	//returns the current value of the private variable m_sound
 	return m_soundtrack;
 }
-HWND cWNDManager::getWNDHandle()               // Return window handle.
+HWND cWNDManager::getWNDHandle()   // Return window handle.
 {
 	return m_hwnd;
 }
 
-HDC cWNDManager::getWNDDC()
+HDC cWNDManager::getWNDDC()//returns WDDC
 {
 	return m_hdc;
 }
 
-void cWNDManager::processWNDEvents()
+void cWNDManager::processWNDEvents()//function processWDEvents
 {
-	MSG msg;
+	MSG msg; //new MSG called msg, creates a message
 
 	//While there are messages in the queue, store them in msg
 	while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -161,7 +169,7 @@ void cWNDManager::processWNDEvents()
 	}
 }
 
-void cWNDManager::setupPixelFormat(void)
+void cWNDManager::setupPixelFormat(void)//function set up pixel format
 {
 	int pixelFormat;
 
@@ -254,40 +262,40 @@ LRESULT CALLBACK cWNDManager::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 	{
 		if (wParam == VK_F1) //If the F1 key was pressed
 		{
-			OutputDebugString("ffffffffffffffffffffffffffffffffffff");
-			pInstance->m_camera = true;
+			OutputDebugString("ffffffffffffffffffffffffffffffffffff"); //place message in debug log
+			pInstance->m_camera = true; //set private variable to true
 		}
 		if (wParam == VK_F2) //If the F2 key was pressed
 		{
-			OutputDebugString("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-			pInstance->m_camera = false;
+			OutputDebugString("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");//place message in debug log
+			pInstance->m_camera = false; //set private variable to false
 		}
-		if (wParam == VK_F3) //If the F1 key was pressed
+		if (wParam == VK_F3) //If the F3 key was pressed
 		{
-			OutputDebugString("Duel of the Fates");
-			if (pInstance->m_soundtrack == false){
-                        pInstance->m_soundtrack = true;
+			OutputDebugString("Duel of the Fates"); //place message in debug log
+			if (pInstance->m_soundtrack == false){ //if private variable's current value is false
+                        pInstance->m_soundtrack = true; //set it to tru
 			}
 			
 			
 		}
-		if (wParam == VK_F4) //If the F1 key was pressed
+		if (wParam == VK_F4) //If the F4 key was pressed
 		{
-			OutputDebugString("sound switch ");
-			pInstance->m_soundtrack = false;
-			if (pInstance->m_soundtrack == true){
+			OutputDebugString("sound switch "); //place message in the debug log
+			pInstance->m_soundtrack = false; //set the pinstance of soundtrack private variabel to false
+			if (pInstance->m_soundtrack == true){ 
 						pInstance->m_soundtrack = false;
 			}
 
 		}
 		if (wParam == VK_ESCAPE) //If the escape key was pressed
 		{
-			OutputDebugString("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+			OutputDebugString("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");//place messgae in the debug log
 			DestroyWindow(pInstance->m_hwnd); //Send a WM_DESTROY message
 		}
 		
 
-		pInstance->m_InputMgr->keyDown(wParam);
+		pInstance->m_InputMgr->keyDown(wParam); //passes the current key down through the inputmanager private variable iof the pInstance
 		return 0;
 	}
 
@@ -296,19 +304,19 @@ LRESULT CALLBACK cWNDManager::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARA
 		break;
 	}
 
-	return DefWindowProc(hWnd, uMsg, wParam, lParam);
+	return DefWindowProc(hWnd, uMsg, wParam, lParam);//returns the window processes
 }
 
-windowOGL*  cWNDManager::getAttachedWND()
+windowOGL*  cWNDManager::getAttachedWND()//function get attached window
 {
-	return m_winOGL;
+	return m_winOGL; //returns private variabel m_winOGL
 }
 
 
-float cWNDManager::getElapsedSeconds()
+float cWNDManager::getElapsedSeconds()//function getElapsed Seconds
 {
-	float currentTime = float(GetTickCount()) / 1000.0f;
-	float seconds = float(currentTime - m_lastTime);
-	m_lastTime = currentTime;
-	return seconds;
+	float currentTime = float(GetTickCount()) / 1000.0f; //current time variabel equals the numbe of ticks passed divided by 1000
+	float seconds = float(currentTime - m_lastTime); //seconds equals the current time minus the private variabel last time
+	m_lastTime = currentTime;//sets a new last time value to the still in use currentTime value.
+	return seconds; //returns the value of seconds
 }

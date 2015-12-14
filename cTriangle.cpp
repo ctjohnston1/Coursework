@@ -3,7 +3,7 @@
 cTriangle.cpp
 ==================================================================================
 */
-
+//NOT USED IN GAME
 #include "cTriangle.h"
 
 cTriangle::cTriangle()

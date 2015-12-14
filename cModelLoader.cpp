@@ -1,13 +1,13 @@
 #include "cModelLoader.h"
 
 
-cModelLoader::cModelLoader()
+cModelLoader::cModelLoader()//constructor
 {
 	m_model = NULL;
 }
 
 
-void cModelLoader::loadModel(const char* mdlFilename)
+void cModelLoader::loadModel(const char* mdlFilename)//load model function by passing in filename
 {
 	m_model = glmReadOBJ(mdlFilename);
 	glmUnitize(m_model);
@@ -15,7 +15,7 @@ void cModelLoader::loadModel(const char* mdlFilename)
 	glmVertexNormals(m_model, 180.0,false);
 }
 
-void cModelLoader::loadModel(const char* mdlFilename, GLuint textureID)
+void cModelLoader::loadModel(const char* mdlFilename, GLuint textureID)//load model by passing in filename and texture
 {
 	m_model = glmReadOBJ(mdlFilename);
 	glmUnitize(m_model);
@@ -25,7 +25,7 @@ void cModelLoader::loadModel(const char* mdlFilename, GLuint textureID)
 	m_model->textures[m_model->numtextures - 1].id = m_TextureID;
 }
 
-void cModelLoader::loadModel(const char* mdlFilename, cTexture mdlTexture)
+void cModelLoader::loadModel(const char* mdlFilename, cTexture mdlTexture)//load model by passing in filename and texture
 {
 	m_model = glmReadOBJ(mdlFilename);
 	//glmUnitize(m_model);
@@ -38,7 +38,7 @@ void cModelLoader::loadModel(const char* mdlFilename, cTexture mdlTexture)
 	//glmLinearTexture(m_model);
 	
 }
-void cModelLoader::renderMdl(glm::vec3 mdlPosition, float mdlRotationAngle, glm::vec3 mdlScale)
+void cModelLoader::renderMdl(glm::vec3 mdlPosition, float mdlRotationAngle, glm::vec3 mdlScale)//renders model 
 {
 	glPushMatrix();
 	//transformations here...
@@ -49,7 +49,7 @@ void cModelLoader::renderMdl(glm::vec3 mdlPosition, float mdlRotationAngle, glm:
 	glPopMatrix();
 }
 
-mdlDimensions cModelLoader::getModelDimensions()
+mdlDimensions cModelLoader::getModelDimensions()//returns the models dimentions
 {
 	mdlDimensions mdl_Dims;
 	GLfloat mdlDims[3];
@@ -60,7 +60,7 @@ mdlDimensions cModelLoader::getModelDimensions()
 	return mdl_Dims;
 }
 
-cModelLoader::~cModelLoader()
+cModelLoader::~cModelLoader()//deconstructor
 {
 	glmDelete(m_model);
 }

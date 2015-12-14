@@ -40,9 +40,9 @@ cFontMgr::~cFontMgr()							// Destructor.
 }
 void cFontMgr::addFont(LPCSTR fontName, LPCSTR fileName, int fontSize)  // add font to the Font collection
 {
-	if (!getFont(fontName))
+	if (!getFont(fontName))//checks if the current value returned for getFont function equals the name passed in (it allows more than one font to be added)
 	{
-		cFont * newFont = new cFont(fileName, fontSize);
+		cFont * newFont = new cFont(fileName, fontSize);//new font  with specified name and size
 		gameFonts.insert(make_pair(fontName, newFont));
 	}
 }

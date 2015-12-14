@@ -66,7 +66,6 @@
   <ItemGroup>
     <ClCompile Include="cCamera.cpp" />
     <ClCompile Include="cColours.cpp" />
-    <ClCompile Include="cCube.cpp" />
     <ClCompile Include="cEnemy.cpp" />
     <ClCompile Include="cFont.cpp" />
     <ClCompile Include="cFontMgr.cpp" />
@@ -77,7 +76,6 @@
     <ClCompile Include="cModel.cpp" />
     <ClCompile Include="cModelLoader.cpp" />
     <ClCompile Include="cPlayer.cpp" />
-    <ClCompile Include="cPyramid.cpp" />
     <ClCompile Include="cShapes.cpp" />
     <ClCompile Include="cSound.cpp" />
     <ClCompile Include="cSoundMgr.cpp" />
@@ -95,7 +93,6 @@
   <ItemGroup>
     <ClInclude Include="cCamera.h" />
     <ClInclude Include="cColours.h" />
-    <ClInclude Include="cCube.h" />
     <ClInclude Include="cEnemy.h" />
     <ClInclude Include="cFont.h" />
     <ClInclude Include="cFontMgr.h" />
@@ -106,7 +103,6 @@
     <ClInclude Include="cModel.h" />
     <ClInclude Include="cModelLoader.h" />
     <ClInclude Include="cPlayer.h" />
-    <ClInclude Include="cPyramid.h" />
     <ClInclude Include="cShapes.h" />
     <ClInclude Include="cSound.h" />
     <ClInclude Include="cSoundMgr.h" />
@@ -133,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

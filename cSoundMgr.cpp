@@ -32,7 +32,7 @@ cSoundMgr* cSoundMgr::getInstance()
 	return cSoundMgr::pInstance;
 }
 
-void cSoundMgr::createContext()
+void cSoundMgr::createContext()//create context function
 {
 	m_OALDevice = alcOpenDevice(NULL);
 	if (m_OALDevice)
@@ -45,9 +45,9 @@ void cSoundMgr::createContext()
 	}
 }
 
-void cSoundMgr::add(LPCSTR sndName, LPCSTR fileName)
+void cSoundMgr::add(LPCSTR sndName, LPCSTR fileName)//add sound with the sound name and its filepath
 {
-	if (!getSnd(sndName))
+	if (!getSnd(sndName))//if the current sound name doesnt equal the one being passed in the create a new sound (allows for more than one sound to be managed)
 	{
 		cSound * newSnd = new cSound();
 		newSnd->loadWAVFile(fileName);
@@ -55,9 +55,9 @@ void cSoundMgr::add(LPCSTR sndName, LPCSTR fileName)
 	}
 }
 
-cSound* cSoundMgr::getSnd(LPCSTR sndName)
+cSound* cSoundMgr::getSnd(LPCSTR sndName)//return sound value
 {
-	map<LPCSTR, cSound*>::iterator snd = gameSnds.find(sndName);
+	map<LPCSTR, cSound*>::iterator snd = gameSnds.find(sndName);//looks for sound name
 	if (snd != gameSnds.end())
 	{
 		return snd->second;
@@ -77,7 +77,8 @@ void cSoundMgr::deleteSnd()
 }
 
 
-cSoundMgr::~cSoundMgr()
+cSoundMgr::~cSoundMgr()//deconstructor, deletes the indormation the variables hold and closes devices and destroys buffers of the particular
+						//instance that calls it
 {
 	m_OALContext = alcGetCurrentContext();
 

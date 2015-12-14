@@ -6,8 +6,9 @@ cLight.cpp
 
 #include "cLight.h"
 
-cLight::cLight()
+cLight::cLight()//constructor with no variables passed through
 {
+	//set values of private variables
 	m_LightID = GL_LIGHT0;
 	m_Ambient = lightColour4(0.0, 0.0, 0.0, 1.0);
 	m_Diffuse = lightColour4(1.0, 1.0, 1.0, 1.0);
@@ -20,9 +21,11 @@ cLight::cLight()
 	m_LinearAttenuation = 0.0;
 	m_QuadraticAttenuation = 0.0;
 }
+//constructor with values passed through
 cLight::cLight(GLenum lightID, lightColour4 ambient, lightColour4 diffuse, lightColour4 specular, glm::vec4 position, glm::vec3 spotDirection
 	, GLfloat  spotExponent, GLfloat  spotCutoff, GLfloat  constantAttenuation, GLfloat  linearAttenuation, GLfloat  quadraticAttenuation)
 {
+	//assign the private variables the value to their correspondant parameter that was passed in
 	m_LightID = lightID;
 	m_Ambient = ambient;
 	m_Diffuse = diffuse;
@@ -37,7 +40,7 @@ cLight::cLight(GLenum lightID, lightColour4 ambient, lightColour4 diffuse, light
 
 }
 
-void cLight::lightOn()
+void cLight::lightOn()//turn on the specified light that called this funciton
 {
 	glEnable(m_LightID);
 	glLightfv(m_LightID, GL_AMBIENT, &(m_Ambient.r));
@@ -52,7 +55,7 @@ void cLight::lightOn()
 	glLightf(m_LightID, GL_QUADRATIC_ATTENUATION, m_QuadraticAttenuation);
 }
 
-void cLight::lightOff()
+void cLight::lightOff()//turn of specified light that called this function
 {
 	glDisable(m_LightID);
 }
